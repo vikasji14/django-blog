@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# Byte-compiled / optimized / DLL files
+*.so
+*.egg-info/
+
+# Virtual Environment
+.env/
+venv/
+ENV/
+env.bak/
+*.env
+
+# Django DB
+db.sqlite3
+*.sqlite3
+
+# Django static/media (generated files)
+staticfiles/
+media/
+
+# Migrations (optional: keep if you want to track them)
+**/migrations/*.pyc
+**/migrations/__pycache__/
+**/migrations/*.py~
+
+# IDEs / Editors
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Test and coverage
+.coverage
+htmlcov/
+*.log
+*.pot
+
+# Pipenv / Poetry
+Pipfile.lock
+poetry.lock
