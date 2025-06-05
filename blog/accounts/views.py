@@ -11,9 +11,11 @@ from django.contrib.auth.decorators import login_required
 def register_user(request):
     if request.method == 'POST':
         form = fm.RegisterUserForm(request.POST)
+        print("Form data:", request.POST)  # Debugging line to check form data
+        print("Form is valid:", form.is_valid())  # Debugging line to check if form is valid
         if form.is_valid():
             var = form.save(commit=False)
-            var.username = var.email
+            var.username = var.email  # Set username from email
             var.save()
             messages.success(request, 'Registration successful! You can now log in.')
             return redirect('login')
@@ -21,7 +23,9 @@ def register_user(request):
             messages.warning(request, 'Registration failed. Please correct the errors below.')
     else:
         form = fm.RegisterUserForm()
-        context = {'form': form}
+    
+    # Always define context before rendering
+    context = {'form': form}
     return render(request, 'accounts/register.html', context)
 
 
