@@ -97,6 +97,7 @@ def like_post(request, pk):
     
 
 def all_posts(request):
-    posts = Post.objects.filter(is_draft=False, sheduled_date__gte=timezone.now().date()).order_by('-date_posted')
+    posts = Post.objects.filter(is_draft=True, sheduled_date__gte=timezone.now().date()).order_by('-date_posted')
+    print("posts",posts)
     context = {'posts': posts}
     return render(request, 'post/all_posts.html', context)

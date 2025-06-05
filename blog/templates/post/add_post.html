@@ -8,19 +8,56 @@
 
         <form class="p-4 p-md-5 border rounded-3 bg-light" method="POST">
             {% csrf_token %}
-            <div class="form-floating mb-3">
-                {% render_field form.title class="form-control" %}
-                <label for="floatingInput">title</label>
+           <div class="row">
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        {% render_field form.category class="form-control" %}
+                        <label for="floatingInput">Category</label>
+                    </div>
+                </div>
+
+                
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        {% render_field form.title class="form-control" %}
+                        <label for="floatingInput">Title</label>
+                    </div>
+                </div>
+
+
             </div>
 
-            <div class="form-floating mb-3">
-                {% render_field form.content class="form-control" %}
-                <label for="floatingPassword">Content</label>
+            <div>
+                <div class="col-md-12">
+                    <div class="form-floating mb-3">
+                        {% render_field form.content class="form-control" rows="5" %}
+                        <label for="floatingInput">Content</label>
+                    </div>
+                </div>
             </div>
 
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-floating mb-3">
+                        {% render_field form.sheduled_date class="form-control" type="date" %}
+                        <label for="floatingInput">Schedule Release Date</label>
+                    </div>
+                </div>
+
+                
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        {% render_field form.is_draft class="form-control" %}
+                        <label for="floatingInput">Post Pusblish</label>
+                    </div>
+                </div>
 
 
+            </div>
 
+            <div class="col-md-12">
+                <button class="w-100 btn btn-lg btn-primary" type="submit">Add Post</button>
+            </div>
         </form>
     </div>
 </div>

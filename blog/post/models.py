@@ -16,7 +16,15 @@ class Post(models.Model):
     content = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     date_posted = models.DateTimeField(auto_now_add=True)
-    is_draft = models.BooleanField(default=False)
+    is_draft = models.CharField(
+        max_length=15,
+        choices=(
+            ('False', 'Draft'),
+            ('True', 'Published'),
+        ),
+        default='True',
+    )
+
     sheduled_date = models.DateTimeField(null=True, blank=True)
     
 
