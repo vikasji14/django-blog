@@ -2,23 +2,24 @@
 
 {% block content %}
 
-<div class="row align-items-md-stretch">
-    <div class="col-md-6">
-        <div class="h-100 p-5 text-white bg-dark rounded-3">
-            <h2>Your Dashboard</h2>
-            <p>Swap the background-color utility and add a `.text-*` color utility to mix up the jumbotron look. Then,
-                mix and match with additional component themes and more.</p>
-            <a href="{% url 'all-posts' %}" class="btn btn-outline-light" type="button">Read post</button></a>
+<div class="row align-items-md-stretch mt-5">
+    <!-- Left Box -->
+    <div class="col-md-6 mb-4">
+        <div class="h-100 p-5 text-white bg-gradient rounded-4 shadow-sm bg-dark">
+            <h2 class="fw-bold mb-3">📊 Your Dashboard</h2>
+            <p class="mb-4">Track your activity, view recent posts, and stay up-to-date with everything happening on your blog. Use the dashboard to quickly navigate and explore insights.</p>
+            <a href="{% url 'all-posts' %}" class="btn btn-light btn-sm px-4 py-2">📖 Read Posts</a>
         </div>
     </div>
-    <div class="col-md-6">
-        <div class="h-100 p-5 bg-light border rounded-3">
-            <h2>Get Active with post!</h2>
-            <p>Or, keep it light and add a border for some added definition to the boundaries of your content. Be sure
-                to look under the hood at the source HTML here as we've adjusted the alignment and sizing of both
-                column's content for equal-height.</p>
-            <a href="{% url 'add-post' %}"  class="btn btn-outline-secondary" type="button">Create a post</a>
+
+    <!-- Right Box -->
+    <div class="col-md-6 mb-4">
+        <div class="h-100 p-5 bg-light border rounded-4 shadow-sm">
+            <h2 class="fw-bold mb-3">✍️ Get Active with Posts!</h2>
+            <p class="mb-4">Have something to say? Share your thoughts by creating a post. Write stories, ideas, or updates — all in one place, your space!</p>
+            <a href="{% url 'add-post' %}" class="btn btn-outline-primary btn-sm px-4 py-2">➕ Create a Post</a>
         </div>
     </div>
 </div>
+
 {% endblock content %}

@@ -31,6 +31,6 @@ class Post(models.Model):
 class PostLike(models.Model):
     reader = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    like_count = models.PositiveBigIntegerField(null=True, editable=True)
+    like_count = models.PositiveBigIntegerField(null=True, editable=True, default=0)
 
     

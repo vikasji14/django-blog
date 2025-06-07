@@ -48,14 +48,24 @@ def update_post(request, pk):
 
 def post_details(request, pk):
     post = Post.objects.get(pk=pk)
-    context = {'post': post}
+    post_like= post.postlike_set.all().count()  
+    is_liked = False
+    if PostLike.objects.filter(post=post,  reader=request.user).exists():
+        is_liked = True
+    
+    context = {'post': post,'post_like': post_like,'is_liked': is_liked, }
     return render(request, 'post/post_details.html', context)
 
 
 def author_posts(request,pk):
     user = User.objects.get(pk=pk)
-    posts = Post.post_set.all()
-    context = {'posts': posts, 'user': user}
+    author_name = user.first_name
+    posts = user.post_set.all()
+    if not posts:
+        messages.info(request, 'This author has no posts.')
+        return redirect('all-posts')
+    context = {'posts': posts, 'user': user, 'author_name': author_name}
+    print("posts",posts)
     return render(request, 'post/author_posts.html', context)
 
 @login_required
@@ -68,32 +78,24 @@ def my_posts(request):
 @login_required
 def delete_post(request, pk):
     post = Post.objects.get(pk=pk)
-    if not post.author == request.user:
-        messages.error(request, 'You are not authorized to delete this post.')
-        return redirect('dashboard')
-    post.delete()
-    messages.success(request, 'Post deleted successfully!')
+    if request.method == 'POST':
+        post.delete()
+        return redirect('my-posts')  # Redirect to your posts list
     return redirect('my-posts')
 
 
 @login_required
 def like_post(request, pk):
     post = Post.objects.get(pk=pk)
-    post_like = PostLike.objects.filter(post=post).first()
     
-    
-    if post_like.exists():
-        if post_like.reader == request.user:
-            messages.success(request, 'You already liked this post!')
-            return redirect('post-details',post.pk)
-        post_like.like_count += 1
-        post_like.save()
-        messages.success(request, 'you just liked this post')
-        return redirect('post-details', post.pk)
-    else:
-        PostLike.objects.create(reader=request.user, like_count=1, post=post)
-        messages.success(request, 'you just liked this post')
-        return redirect('post-details', post.pk)
+    if PostLike.objects.filter(post=post,  reader=request.user).exists():
+        messages.warning(request, 'You already liked this post!')
+        return redirect('post-details',post.pk)
+
+    PostLike.objects.create(reader=request.user, post=post)
+    messages.success(request, 'Post liked successfully!')
+    return redirect('post-details', post.pk)
+       
     
 
 def all_posts(request):

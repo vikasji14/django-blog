@@ -1,65 +1,95 @@
+
+
+
 {% extends "base.html" %}
 {% load widget_tweaks %}
+
 {% block content %}
 
-<div class="card">
-    <h5 class="card-header">Add a post</h5>
-    <div class="card-body">
+<div class="container my-5">
+    <div class="card border-0 shadow-lg rounded-4">
+        <div class="card-header text-white rounded-top-4" style="background: linear-gradient(135deg, #0d6efd, #6610f2);">
+            <h5 class="mb-0 fw-semibold"><i class="bi bi-pencil-square me-2"></i>Add a New Post</h5>
+        </div>
+        <div class="card-body bg-light">
 
-        <form class="p-4 p-md-5 border rounded-3 bg-light" method="POST">
-            {% csrf_token %}
-           <div class="row">
-                <div class="col-md-6">
-                    <div class="form-floating mb-3">
-                        {% render_field form.category class="form-control" %}
-                        <label for="floatingInput">Category</label>
+            <form method="POST" class="p-4">
+                {% csrf_token %}
+                <div class="row g-3">
+
+                    <!-- Category -->
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            {% render_field form.category class="form-control" %}
+                            <label>Category</label>
+                        </div>
                     </div>
-                </div>
 
-                
-                <div class="col-md-6">
-                    <div class="form-floating mb-3">
-                        {% render_field form.title class="form-control" %}
-                        <label for="floatingInput">Title</label>
+                    <!-- Title -->
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            {% render_field form.title class="form-control" %}
+                            <label>Title</label>
+                        </div>
                     </div>
-                </div>
 
-
-            </div>
-
-            <div>
-                <div class="col-md-12">
-                    <div class="form-floating mb-3">
-                        {% render_field form.content class="form-control" rows="5" %}
-                        <label for="floatingInput">Content</label>
+                    <!-- Content -->
+                    <div class="col-12">
+                        <div class="form-floating">
+                            {% render_field form.content class="form-control" rows="6" style="height: 150px;" %}
+                            <label>Content</label>
+                        </div>
                     </div>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="form-floating mb-3">
-                        {% render_field form.sheduled_date class="form-control" type="date" %}
-                        <label for="floatingInput">Schedule Release Date</label>
+                    <!-- Scheduled Date -->
+                    <div class="col-md-4">
+                        <div class="form-floating">
+                            {% render_field form.sheduled_date class="form-control" type="date" %}
+                            <label>Schedule Release</label>
+                        </div>
                     </div>
-                </div>
 
-                
-                <div class="col-md-6">
-                    <div class="form-floating mb-3">
-                        {% render_field form.is_draft class="form-control" %}
-                        <label for="floatingInput">Post Pusblish</label>
+                    <!-- Is Draft -->
+                    <div class="col-md-4">
+                        <div class="form-floating">
+                            {% render_field form.is_draft class="form-control" %}
+                            <label>Publish Status</label>
+                        </div>
                     </div>
+
+                    <!-- Submit Button -->
+                    <div class="col-12 mt-3">
+                        <button type="submit" class="btn btn-gradient w-100 py-2 fw-semibold">
+                            <i class="bi bi-plus-circle me-1"></i> Publish Post
+                        </button>
+                    </div>
+
                 </div>
+            </form>
 
-
-            </div>
-
-            <div class="col-md-12">
-                <button class="w-100 btn btn-lg btn-primary" type="submit">Add Post</button>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
+
+<!-- Optional custom styles (place in base.html or here) -->
+<style>
+    .btn-gradient {
+        background: linear-gradient(45deg, #0d6efd, #6610f2);
+        color: white;
+        border: none;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-gradient:hover {
+        background: linear-gradient(45deg, #6610f2, #0d6efd);
+        color: white;
+        transform: scale(1.02);
+    }
+
+    .form-floating > .form-control:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+    }
+</style>
 
 {% endblock content %}
