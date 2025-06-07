@@ -5,14 +5,50 @@
     <div class="card shadow-sm">
         <div class="card-body">
             <h1 class="card-title display-5 fw-bold mb-3">{{ post.title | title }}</h1>
-            
+
             <div class="mb-3 text-muted">
-                <a href="#" class="text-decoration-none text-primary">{{ post.category }}</a> &nbsp;|&nbsp; 
-                <small>{{ post.date_posted }}</small> &nbsp;|&nbsp; 
-                <small>Author: <a href="{% url 'author-posts' post.author.pk %}">{{ post.author.first_name }}</a></small>
+                <a href="{% url 'posts-per-category' post.category.pk %}"
+                    class="text-decoration-none text-primary">{{post.category }}</a> &nbsp;|&nbsp;
+                <small>{{ post.date_posted }}</small> &nbsp;|&nbsp;
+                <small>Author: <a href="{% url 'author-posts' post.author.pk %}">{{ post.author.first_name}}</a></small>
             </div>
 
-            <p class="card-text fs-5">{{ post.content }}</p>
+            <div class="d-flex flex-column flex-lg-row">
+                <!-- Main Blog Content -->
+                <div class="col-lg-8">
+                    <div class="p-4">
+                        <!-- <h2 class="mb-4">{{ post.title }}</h2> -->
+                        <p class="fs-5 lh-lg text-justify">{{ post.content }}</p>
+                    </div>
+                </div>
+
+                <!-- Related Posts Sidebar -->
+                <div class="col-lg-3 gap-4 p-4">
+                    <div class="card shadow  border-0"  style="height: 300px;">
+                        <div class="card-header bg-gradient text-dark fw-semibold">
+                            <i class="bi bi-link-45deg me-1"></i> Related Blogs
+                        </div>
+                        <div class="card-body" style="max-height: 400px; overflow-y: auto;">
+                            {% if related_posts %}
+                            <ul class="list-group list-group-flush">
+                                {% for post in related_posts %}
+                                <li class="list-group-item px-0">
+                                    <a href="{% url 'post-details' post.pk %}"
+                                        class="text-decoration-none d-flex align-items-center">
+                                        <i class="bi bi-arrow-right-circle-fill text-primary me-2"></i>
+                                        <span class="text-primary text-xsm">{{ post.title|title|slice:"45" }}</span>
+                                    </a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            {% else %}
+                            <p class="text-muted mb-0">No related blogs found.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
             <div class="mt-4 d-flex align-items-center">
                 <form action="{% url 'like-post' post.pk %}" method="POST" class="me-3">
@@ -21,16 +57,18 @@
                         class="btn btn-outline-info border-1  d-flex align-items-center justify-content-center"
                         style="min-width: 20px; font-size: 1.4rem;" title="Like">
                         {% if is_liked %}
-                            ❤️
+                        ❤️
                         {% else %}
-                            🤍
+                        🤍
                         {% endif %}
-                     <span class="text-muted" style="font-size: small ;">{{ post_like }} likes</span>
+                        <span class="text-muted" style="font-size: small ;">{{ post_like }} likes</span>
 
                     </button>
                 </form>
             </div>
         </div>
     </div>
+
+
 </div>
 {% endblock %}

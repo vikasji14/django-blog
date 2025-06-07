@@ -9,6 +9,8 @@ from django.contrib.auth.decorators import login_required
 
 
 def register_user(request):
+    if request.user.is_authenticated:
+        return redirect('dashboard') 
     if request.method == 'POST':
         form = fm.RegisterUserForm(request.POST)
         print("Form data:", request.POST)  # Debugging line to check form data
@@ -30,6 +32,8 @@ def register_user(request):
 
 
 def login_user(request):
+    if request.user.is_authenticated:
+        return redirect('dashboard') 
     if request.method == 'POST':
         username = request.POST.get('email')
         password = request.POST.get('password')

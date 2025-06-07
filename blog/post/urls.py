@@ -11,6 +11,6 @@ urlpatterns = [
    path('my-posts/', views.my_posts, name='my-posts'),
    path('delete-post/<int:pk>/', views.delete_post, name='delete-post'),
    path('like-post/<int:pk>/', views.like_post, name='like-post'),
-#    path('draft-posts/', views.draft_posts, name='draft-posts'),
-
+   path('posts-per-category/<int:pk>/', views.posts_per_category, name='posts-per-category'),
+   path('search-posts/', views.search_post, name='search')
 ]

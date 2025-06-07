@@ -4,26 +4,59 @@
 
 <form class="p-4 p-md-5 border rounded-3 bg-light" method="POST">
     {% csrf_token %}
+
+    <!-- First Name -->
     <div class="form-floating mb-3">
-       {% render_field form.first_name class="form-control" %}
+        {% render_field form.first_name class="form-control" %}
         <label for="floatingInput">First Name</label>
     </div>
+
+    <!-- Email -->
     <div class="form-floating mb-3">
         {% render_field form.email class="form-control" %}
-        <label for="floatingPassword">Email address</label>
+        <label for="floatingEmail">Email address</label>
     </div>
-    <div class="form-floating mb-3">
-       {% render_field form.password1 class="form-control" %}
-        <label for="floatingPassword">Password</label>
+
+    <!-- Password -->
+    <div class="form-floating mb-3 position-relative">
+        {% render_field form.password1 class="form-control" id="password1" %}
+        <label for="password1">Password</label>
+        <span class="position-absolute top-50 end-0 translate-middle-y pe-3" onclick="togglePassword('password1', this)" style="cursor: pointer;">
+            👁️
+        </span>
     </div>
-    <div class="form-floating mb-3">
-       {% render_field form.password2 class="form-control" %}
-        <label for="floatingPassword">Confirm Password</label>
+
+    <!-- Confirm Password -->
+    <div class="form-floating mb-3 position-relative">
+        {% render_field form.password2 class="form-control" id="password2" %}
+        <label for="password2">Confirm Password</label>
+        {% if form.password2.errors %}
+        <div class="text-danger small mt-1">{{ form.password2.errors.0 }}</div>
+        {% endif %}
+        <span class="position-absolute top-50 end-0 translate-middle-y pe-3" onclick="togglePassword('password2', this)" style="cursor: pointer;">
+            👁️
+        </span>
     </div>
+
+    <!-- Submit -->
     <button class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
+
     <hr class="my-4">
-    <small class="text-muted">Already have an account? <a href="{% url 'login' %}">
-        Sign in</a></small>
+    <small class="text-muted">Already have an account? <a href="{% url 'login' %}">Sign in</a></small>
 </form>
+
+<!-- Password Toggle Script -->
+<script>
+function togglePassword(fieldId, iconElement) {
+    const input = document.getElementById(fieldId);
+    if (input.type === "password") {
+        input.type = "text";
+        iconElement.textContent = "🙈";
+    } else {
+        input.type = "password";
+        iconElement.textContent = "👁️";
+    }
+}
+</script>
 
 {% endblock content %}

@@ -17,8 +17,6 @@ env.bak/
 *.env
 
 # Django DB
-db.sqlite3
-*.sqlite3
 
 # Django static/media (generated files)
 staticfiles/

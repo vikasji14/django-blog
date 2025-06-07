@@ -52,8 +52,8 @@ def post_details(request, pk):
     is_liked = False
     if PostLike.objects.filter(post=post,  reader=request.user).exists():
         is_liked = True
-    
-    context = {'post': post,'post_like': post_like,'is_liked': is_liked, }
+    related_posts = Post.objects.order_by('?')[:5]
+    context = {'post': post,'post_like': post_like,'is_liked': is_liked,'related_posts':related_posts }
     return render(request, 'post/post_details.html', context)
 
 
@@ -103,3 +103,17 @@ def all_posts(request):
     print("posts",posts)
     context = {'posts': posts}
     return render(request, 'post/all_posts.html', context)
+
+
+def posts_per_category(request,pk):
+    category = Category.objects.get(pk=pk)
+    posts = category.post_set.all()
+    context = {'posts':posts, 'category':category}
+    return render(request, 'post/posts_per_category.html', context)
+
+
+def search_post(request):
+    query = request.GET.get('q')
+    results = Post.objects.filter(title__icontains=query)
+    context={'query':query,'results':results}
+    return render(request, 'post/search_posts.html', context)
